@@ -47,8 +47,7 @@ class RangeIterator extends DomIterator {
    */
 
   public selects (node: Node, peek: boolean): boolean {
-    if (!this.withinRange(node)) return false;
-    return super.selects(node, peek);
+    return this.withinRange(node) && super.selects(node, peek);
   }
 
   /**
