@@ -16,17 +16,13 @@ import DomIterator = require('dom-iterator');
 
 class RangeIterator extends DomIterator {
   startContainer: Node;
-  startOffset: Number;
   endContainer: Node;
-  endOffset: Number;
 
   constructor(range: Range) {
     if (!range) throw new TypeError('a Range instance is required!');
 
     this.startContainer = range.startContainer;
-    this.startOffset = range.startOffset;
     this.endContainer = range.endContainer;
-    this.endOffset = range.endOffset;
 
     var start = range.commonAncestorContainer;
 
