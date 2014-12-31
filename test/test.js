@@ -84,7 +84,7 @@ describe('RangeIterator', function () {
     var range = document.createRange();
     range.setStart(d.firstChild.firstChild, 0);
     range.setEnd(d.lastChild, 0);
-    assert.equal('llo world.', range.toString());
+    assert.equal('hello world.', range.toString());
 
     var next;
     var iterator = new RangeIterator(range)
