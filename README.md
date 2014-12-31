@@ -13,3 +13,27 @@ Installation
 ``` bash
 $ npm install range-iterator
 ```
+
+
+Example
+-------
+
+``` js
+var RangeIterator = require('range-iterator');
+
+var range = document.createRange();
+range.selectNodeContents(document.body);
+
+var next;
+var iterator = new RangeIterator(range)
+  .revisit(false)
+  .select(Node.TEXT_NODE)
+  .select(function (node) {
+    return node.nodeName === 'BR';
+  });
+// reads as: select all TextNodes and BR elements within the Range selection
+
+while (next = iterator.next()) {
+  // do something with Node `next`
+}
+```
