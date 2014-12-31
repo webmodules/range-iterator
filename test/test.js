@@ -80,6 +80,29 @@ describe('RangeIterator', function () {
     assert(!next);
   });
 
+  it('should iterate over the TextNodes within a Range selecting beginning of last paragraph', function () {
+    var range = document.createRange();
+    range.setStart(d.firstChild.firstChild, 0);
+    range.setEnd(d.lastChild, 0);
+    assert.equal('llo world.', range.toString());
+
+    var next;
+    var iterator = new RangeIterator(range)
+      .select(3 /* Node.TEXT_NODE */);
+
+    next = iterator.next();
+    assert(next.nodeValue === 'hello ');
+
+    next = iterator.next();
+    assert(next.nodeValue === 'world');
+
+    next = iterator.next();
+    assert(next.nodeValue === '.');
+
+    next = iterator.next();
+    assert(!next);
+  });
+
   it('should iterate over the B element within a Range', function () {
     var range = document.createRange();
     range.setStart(d.firstChild.firstChild, 2);
