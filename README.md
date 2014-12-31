@@ -1,6 +1,6 @@
 range-iterator
 ============
-### Subclass of DomIterator that iterates over a Range's selection
+### Subclass of `DomIterator` that iterates over a Range's selection
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/range-iterator.svg)](https://saucelabs.com/u/range-iterator)
 
