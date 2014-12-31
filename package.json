@@ -1,0 +1,36 @@
+{
+  "name": "range-iterator",
+  "version": "0.0.0",
+  "description": "Subclass of DomIterator that iterates over a Range's selection",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "tsc --module commonjs --declaration index.ts",
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webmodules/range-iterator.git"
+  },
+  "keywords": [
+    "browser",
+    "dom",
+    "range",
+    "iterate",
+    "iterator"
+  ],
+  "author": "Nathan Rajlich <nathan@tootallnate.net> (http://n8.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webmodules/range-iterator/issues"
+  },
+  "homepage": "https://github.com/webmodules/range-iterator",
+  "dependencies": {
+    "debug": "~2.0.0",
+    "dom-iterator": "~0.3.0",
+    "node-contains": "~1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "~1.3.0",
+    "zuul": "~1.16.3"
+  }
+}
