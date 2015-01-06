@@ -6,18 +6,22 @@ var RangeIterator = require('../');
 describe('RangeIterator', function () {
 
   var d = document.createElement('div');
-  d.innerHTML =
-    '<p>' +
-      'hello ' +
-      '<b>world</b>' +
-      '.' +
-    '</p>' +
-    '<p>' +
-      'foo' +
-    '</p>';
 
   d.style.display = 'none';
   document.body.appendChild(d);
+
+  beforeEach(function () {
+    // default HTML for the tests
+    d.innerHTML =
+      '<p>' +
+        'hello ' +
+        '<b>world</b>' +
+        '.' +
+      '</p>' +
+      '<p>' +
+        'foo' +
+      '</p>';
+  });
 
   after(function () {
     // clean up
@@ -134,6 +138,45 @@ describe('RangeIterator', function () {
 
     next = iterator.next();
     assert(next.nodeValue === 'foo');
+
+    next = iterator.next();
+    assert(!next);
+  });
+
+  it('should iterate over the TextNodes and BR elements within a Range with multiple blocks', function () {
+    d.innerHTML = '<p>hel<b>lo</b></p><p><b><br></b></p><p><b><br></b></p><p><b>wo</b>rld</p>';
+
+    var range = document.createRange();
+    range.setStart(d.firstChild.firstChild, 0);
+    range.setEnd(d.lastChild.lastChild, 3);
+    assert(!range.collapsed);
+    assert.equal('helloworld', range.toString());
+
+    var next;
+    var iterator = new RangeIterator(range)
+      .revisit(false)
+      .select(3 /* Node.TEXT_NODE */)
+      .select(function (node) {
+        return 'BR' === node.nodeName;
+      });
+
+    next = iterator.next();
+    assert(next.nodeValue === 'hel');
+
+    next = iterator.next();
+    assert(next.nodeValue === 'lo');
+
+    next = iterator.next();
+    assert(next.nodeName === 'BR');
+
+    next = iterator.next();
+    assert(next.nodeName === 'BR');
+
+    next = iterator.next();
+    assert(next.nodeValue === 'wo');
+
+    next = iterator.next();
+    assert(next.nodeValue === 'rld');
 
     next = iterator.next();
     assert(!next);
