@@ -182,4 +182,25 @@ describe('RangeIterator', function () {
     assert(!next);
   });
 
+  it('should iterate over the TextNodes within a Range that ends with the beginning of a P', function () {
+    d.innerHTML = '<p>foo</p><p>bar</p>';
+
+    var range = document.createRange();
+    range.setStart(d.firstChild.firstChild, 0);
+    range.setEnd(d.lastChild, 0);
+    assert(!range.collapsed);
+    assert.equal('foo', range.toString());
+
+    var next;
+    var iterator = new RangeIterator(range)
+      .revisit(false)
+      .select(3 /* Node.TEXT_NODE */);
+
+    next = iterator.next();
+    assert(next.nodeValue === 'foo');
+
+    next = iterator.next();
+    assert(!next);
+  });
+
 });
