@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/webmodules/range-iterator",
   "dependencies": {
-    "debug": "~2.0.0",
+    "debug": "2",
     "dom-iterator": "~0.3.0",
     "node-contains": "~1.0.0"
   },
