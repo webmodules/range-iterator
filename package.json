@@ -1,6 +1,6 @@
 {
   "name": "range-iterator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Subclass of DomIterator that iterates over a Range's selection",
   "main": "index.js",
   "scripts": {
