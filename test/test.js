@@ -203,4 +203,44 @@ describe('RangeIterator', function () {
     assert(!next);
   });
 
+  describe('@@iterator', function () {
+
+    it('should be an ES6 Iterable', function () {
+      d.innerHTML = '<p>one</p><p>two</p><p>three</p>';
+
+      let range = document.createRange();
+      range.setStart(d.firstChild.firstChild, 0);
+      range.setEnd(d.lastChild.firstChild, 5);
+      assert(!range.collapsed);
+      assert.equal('onetwothree', range.toString());
+
+      let iterator = new RangeIterator(range)
+        .revisit(false)
+        .select(3 /* Node.TEXT_NODE */);
+
+      // `Array.from()` and `[...iterator]` don't
+      // work in babelify for some reason :(
+      let count = 0;
+      for (let node of iterator) {
+        count++;
+        switch (count) {
+          case 1:
+            assert.equal('one', node.nodeValue);
+            continue;
+          case 2:
+            assert.equal('two', node.nodeValue);
+            continue;
+          case 3:
+            assert.equal('three', node.nodeValue);
+            continue;
+          default:
+            assert(0, 'should not happen');
+            continue;
+        }
+      }
+      assert.equal(3, count);
+    });
+
+  });
+
 });

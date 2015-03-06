@@ -65,6 +65,17 @@ class RangeIterator extends DomIterator {
 }
 
 /**
+ * ES6 Iterable implementation.
+ */
+
+RangeIterator.prototype[Symbol.iterator] = function *() {
+  let next;
+  while (next = this.next()) {
+    yield next;
+  }
+};
+
+/**
  * Module exports.
  */
 
