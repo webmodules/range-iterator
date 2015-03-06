@@ -40,7 +40,7 @@ test:
 		test/*.js; \
 	fi
 
-.PHONY: compile, install, clean, distclean test
+.PHONY: compile install clean distclean test
 
 build:
 	@mkdir -p build
