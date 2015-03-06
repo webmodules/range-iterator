@@ -1,10 +1,9 @@
-/// <reference path='types.d.ts' />
 
 /**
- * TypeScript dependencies.
+ * Module dependencies.
  */
 
-import DomIterator = require('dom-iterator');
+import DomIterator from 'dom-iterator';
 
 /**
  * A DOM Iterator that traverses between the start and end points
@@ -15,10 +14,7 @@ import DomIterator = require('dom-iterator');
  */
 
 class RangeIterator extends DomIterator {
-  startContainer: Node;
-  endContainer: Node;
-
-  constructor(range: Range) {
+  constructor(range) {
     if (!range) throw new TypeError('a Range instance is required!');
 
     this.startContainer = range.startContainer;
@@ -46,7 +42,7 @@ class RangeIterator extends DomIterator {
    * @public
    */
 
-  public selects (node: Node, peek: boolean): boolean {
+  selects(node, peek) {
     return this.withinRange(node) && super.selects(node, peek);
   }
 
@@ -59,7 +55,7 @@ class RangeIterator extends DomIterator {
    * @public
    */
 
-  public withinRange (node: Node): boolean {
+  withinRange(node) {
     return node === this.startContainer ||
       node === this.endContainer ||
       (Boolean(node.compareDocumentPosition(this.startContainer) & Node.DOCUMENT_POSITION_PRECEDING)
@@ -68,4 +64,8 @@ class RangeIterator extends DomIterator {
   }
 }
 
-export = RangeIterator;
+/**
+ * Module exports.
+ */
+
+module.exports = RangeIterator;

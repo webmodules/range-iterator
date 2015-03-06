@@ -8,7 +8,21 @@ BIN := $(THIS_DIR)/node_modules/.bin
 
 # applications
 NODE ?= node
+BABEL ?= $(NODE) $(BIN)/babel
 ZUUL ?= $(NODE) $(BIN)/zuul
+
+JS_FILES := $(wildcard *.js)
+COMPILED_FILES := $(JS_FILES:%.js=build/%.js)
+
+compile: $(COMPILED_FILES)
+
+install: node_modules
+
+clean:
+	rm -rf build
+
+distclean:
+	rm -rf node_modules
 
 test:
 	@if [ "x$(BROWSER_PLATFORM)" = "x" ]; then \
@@ -26,4 +40,14 @@ test:
 		test/*.js; \
 	fi
 
-.PHONY: test
+.PHONY: compile, install, clean, distclean test
+
+build:
+	@mkdir -p build
+
+node_modules:
+	npm install
+
+build/%.js: %.js node_modules build
+	@printf '\e[1;93m %-10s\e[m %s > %s\n' "babel" "$<" "$@"
+	@$(BABEL) --source-maps-inline --optional runtime --experimental $< --out-file $@

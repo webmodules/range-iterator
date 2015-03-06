@@ -1,10 +1,10 @@
 {
   "name": "range-iterator",
   "version": "1.0.1",
-  "description": "Subclass of DomIterator that iterates over a Range's selection",
-  "main": "index.js",
+  "description": "ES6 Iterator that iterates over the Nodes of a Range",
+  "main": "build/index.js",
   "scripts": {
-    "prepublish": "tsc --module commonjs --declaration index.ts",
+    "prepublish": "make",
     "test": "make test"
   },
   "repository": {
@@ -25,12 +25,13 @@
   },
   "homepage": "https://github.com/webmodules/range-iterator",
   "dependencies": {
+    "babel-runtime": "4",
     "debug": "2",
     "dom-iterator": "~0.3.0",
     "node-contains": "~1.0.0"
   },
   "devDependencies": {
-    "typescript": "~1.4.1",
+    "babel": "4",
     "zuul": "2"
   }
 }
