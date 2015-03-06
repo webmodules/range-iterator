@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "babel": "4",
+    "babelify": "~5.0.4",
     "zuul": "2"
   }
 }

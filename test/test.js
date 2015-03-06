@@ -1,11 +1,11 @@
 
-var assert = require('assert');
-var DomIterator = require('dom-iterator');
-var RangeIterator = require('../');
+let assert = require('assert');
+let DomIterator = require('dom-iterator');
+let RangeIterator = require('../');
 
 describe('RangeIterator', function () {
 
-  var d = document.createElement('div');
+  let d = document.createElement('div');
 
   d.style.display = 'none';
   document.body.appendChild(d);
@@ -29,22 +29,22 @@ describe('RangeIterator', function () {
   });
 
   it('should create a `RangeIterator` instance', function () {
-    var range = document.createRange();
+    let range = document.createRange();
     range.setStart(d.firstChild.firstChild, 2);
     range.setEnd(d.firstChild.firstChild, 2);
     assert(range.collapsed);
 
-    var iterator = new RangeIterator(range);
+    let iterator = new RangeIterator(range);
     assert(iterator instanceof RangeIterator);
   });
 
   it('should be a subclass of `DomIterator`', function () {
-    var range = document.createRange();
+    let range = document.createRange();
     range.setStart(d.firstChild.firstChild, 2);
     range.setEnd(d.firstChild.firstChild, 2);
     assert(range.collapsed);
 
-    var iterator = new RangeIterator(range);
+    let iterator = new RangeIterator(range);
     assert(iterator instanceof DomIterator);
   });
 
@@ -59,13 +59,13 @@ describe('RangeIterator', function () {
   });
 
   it('should iterate over the TextNodes within a Range', function () {
-    var range = document.createRange();
+    let range = document.createRange();
     range.setStart(d.firstChild.firstChild, 2);
     range.setEnd(d.lastChild.firstChild, 2);
     assert.equal('llo world.fo', range.toString());
 
-    var next;
-    var iterator = new RangeIterator(range)
+    let next;
+    let iterator = new RangeIterator(range)
       .select(3 /* Node.TEXT_NODE */);
 
     next = iterator.next();
@@ -85,13 +85,13 @@ describe('RangeIterator', function () {
   });
 
   it('should iterate over the TextNodes within a Range selecting beginning of last paragraph', function () {
-    var range = document.createRange();
+    let range = document.createRange();
     range.setStart(d.firstChild.firstChild, 0);
     range.setEnd(d.lastChild, 0);
     assert.equal('hello world.', range.toString());
 
-    var next;
-    var iterator = new RangeIterator(range)
+    let next;
+    let iterator = new RangeIterator(range)
       .select(3 /* Node.TEXT_NODE */);
 
     next = iterator.next();
@@ -108,13 +108,13 @@ describe('RangeIterator', function () {
   });
 
   it('should iterate over the B element within a Range', function () {
-    var range = document.createRange();
+    let range = document.createRange();
     range.setStart(d.firstChild.firstChild, 2);
     range.setEnd(d.lastChild.firstChild, 2);
     assert.equal('llo world.fo', range.toString());
 
-    var next;
-    var iterator = new RangeIterator(range)
+    let next;
+    let iterator = new RangeIterator(range)
       .revisit(false)
       .select('nodeName === "B"');
 
@@ -127,13 +127,13 @@ describe('RangeIterator', function () {
   });
 
   it('should iterate over the TextNode within a collapsed Range', function () {
-    var range = document.createRange();
+    let range = document.createRange();
     range.setStart(d.lastChild.firstChild, 2);
     range.setEnd(d.lastChild.firstChild, 2);
     assert(range.collapsed);
 
-    var next;
-    var iterator = new RangeIterator(range)
+    let next;
+    let iterator = new RangeIterator(range)
       .select(3 /* Node.TEXT_NODE */);
 
     next = iterator.next();
@@ -146,14 +146,14 @@ describe('RangeIterator', function () {
   it('should iterate over the TextNodes and BR elements within a Range with multiple blocks', function () {
     d.innerHTML = '<p>hel<b>lo</b></p><p><b><br></b></p><p><b><br></b></p><p><b>wo</b>rld</p>';
 
-    var range = document.createRange();
+    let range = document.createRange();
     range.setStart(d.firstChild.firstChild, 0);
     range.setEnd(d.lastChild.lastChild, 3);
     assert(!range.collapsed);
     assert.equal('helloworld', range.toString());
 
-    var next;
-    var iterator = new RangeIterator(range)
+    let next;
+    let iterator = new RangeIterator(range)
       .revisit(false)
       .select(3 /* Node.TEXT_NODE */)
       .select(function (node) {
@@ -185,14 +185,14 @@ describe('RangeIterator', function () {
   it('should iterate over the TextNodes within a Range that ends with the beginning of a P', function () {
     d.innerHTML = '<p>foo</p><p>bar</p>';
 
-    var range = document.createRange();
+    let range = document.createRange();
     range.setStart(d.firstChild.firstChild, 0);
     range.setEnd(d.lastChild, 0);
     assert(!range.collapsed);
     assert.equal('foo', range.toString());
 
-    var next;
-    var iterator = new RangeIterator(range)
+    let next;
+    let iterator = new RangeIterator(range)
       .revisit(false)
       .select(3 /* Node.TEXT_NODE */);
 
