@@ -19,21 +19,19 @@ Example
 -------
 
 ``` js
-var RangeIterator = require('range-iterator');
+import RangeIterator from 'range-iterator';
 
-var range = document.createRange();
+let range = document.createRange();
 range.selectNodeContents(document.body);
 
-var next;
-var iterator = new RangeIterator(range)
-  .revisit(false)
-  .select(Node.TEXT_NODE)
-  .select(function (node) {
-    return node.nodeName === 'BR';
-  });
-// reads as: select all TextNodes and BR elements within the Range selection
+// Iterate over all TextNodes and BR elements within the Range selection
+let iterator = RangeIterator(range, NodeFilter.SHOW_ALL, function (node) {
+  return node.nodeType === Node.TEXT_NODE || node.nodeName === 'BR';
+})
 
-while (next = iterator.next()) {
-  // do something with Node `next`
+let node;
+for (node of iterator) {
+  // do something with Node `node`
+  console.log(node);
 }
 ```
