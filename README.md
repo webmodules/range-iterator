@@ -1,6 +1,6 @@
 range-iterator
 ============
-### Subclass of [`DomIterator`](https://github.com/MatthewMueller/dom-iterator) that iterates over a Range's selection
+### ES6 Iterator that iterates over the Nodes of a Range
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/range-iterator.svg)](https://saucelabs.com/u/range-iterator)
 
