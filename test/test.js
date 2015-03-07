@@ -166,7 +166,7 @@ describe('RangeIterator', function () {
 
     next = iterator.next();
     assert.equal(false, next.done);
-    assert(next.value.nodeValue, 'hel');
+    assert.equal(next.value.nodeValue, 'hel');
 
     next = iterator.next();
     assert.equal(false, next.done);
