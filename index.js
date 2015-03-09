@@ -20,6 +20,12 @@ import normalize from 'range-normalize';
 function RangeIterator(range, whatToShow, filter, entityReferenceExpansion) {
   if (!range) throw new TypeError('a Range instance must be given');
 
+  // allow the `filter` to be the 2nd parameter
+  if ('function' === typeof whatToShow) {
+    filter = whatToShow;
+    whatToShow = NodeFilter.SHOW_ALL;
+  }
+
   let r = normalize(range.cloneRange());
   let startContainer = r.startContainer;
   let endContainer = r.endContainer;
