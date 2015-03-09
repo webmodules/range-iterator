@@ -26,7 +26,7 @@
   "homepage": "https://github.com/webmodules/range-iterator",
   "dependencies": {
     "babel-runtime": "4",
-    "node-iterator": "~1.0.1"
+    "node-iterator": "~1.1.0"
   },
   "devDependencies": {
     "babel": "4",
