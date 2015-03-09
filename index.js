@@ -4,6 +4,7 @@
  */
 
 import NodeIterator from 'node-iterator';
+import normalize from 'range-normalize';
 
 /**
  * Returns an ES6 Iterator that traverses between the start and end points
@@ -19,10 +20,12 @@ import NodeIterator from 'node-iterator';
 function RangeIterator(range, whatToShow, filter, entityReferenceExpansion) {
   if (!range) throw new TypeError('a Range instance must be given');
 
-  let startContainer = range.startContainer;
-  let endContainer = range.endContainer;
-  let start = range.commonAncestorContainer;
+  let r = normalize(range.cloneRange());
+  let startContainer = r.startContainer;
+  let endContainer = r.endContainer;
+  let start = r.commonAncestorContainer;
   let doc = start.ownerDocument;
+  r = null;
 
   function acceptNode (node) {
     if (!withinRange(node)) return NodeFilter.FILTER_REJECT;
@@ -31,11 +34,14 @@ function RangeIterator(range, whatToShow, filter, entityReferenceExpansion) {
   }
 
   function withinRange(node) {
-    return node === startContainer ||
-      node === endContainer ||
-      (Boolean(node.compareDocumentPosition(startContainer) & Node.DOCUMENT_POSITION_PRECEDING)
+    if (node === startContainer || node === endContainer) return true;
+    let s = node.compareDocumentPosition(startContainer);
+    let e = node.compareDocumentPosition(endContainer);
+    return (
+      (s & Node.DOCUMENT_POSITION_PRECEDING || s & Node.DOCUMENT_POSITION_CONTAINS)
         &&
-      Boolean(node.compareDocumentPosition(endContainer) & Node.DOCUMENT_POSITION_FOLLOWING));
+      (e & Node.DOCUMENT_POSITION_FOLLOWING || e & Node.DOCUMENT_POSITION_CONTAINS)
+    );
   }
 
   return NodeIterator(start, whatToShow, acceptNode, entityReferenceExpansion);
