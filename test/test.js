@@ -8,8 +8,12 @@ describe('RangeIterator', function () {
   d.style.display = 'none';
   document.body.appendChild(d);
 
-  beforeEach(function () {
-    // default HTML for the tests
+  after(function () {
+    // clean up
+    document.body.removeChild(d);
+  });
+
+  it('should return an ES6 Iterator', function () {
     d.innerHTML =
       '<p>' +
         'hello ' +
@@ -19,14 +23,7 @@ describe('RangeIterator', function () {
       '<p>' +
         'foo' +
       '</p>';
-  });
 
-  after(function () {
-    // clean up
-    document.body.removeChild(d);
-  });
-
-  it('should return an ES6 Iterator', function () {
     var range = document.createRange();
     range.setStart(d.firstChild.firstChild, 2);
     range.setEnd(d.firstChild.firstChild, 2);
@@ -47,6 +44,16 @@ describe('RangeIterator', function () {
   });
 
   it('should iterate over the TextNodes within a Range', function () {
+    d.innerHTML =
+      '<p>' +
+        'hello ' +
+        '<b>world</b>' +
+        '.' +
+      '</p>' +
+      '<p>' +
+        'foo' +
+      '</p>';
+
     var range = document.createRange();
     range.setStart(d.firstChild.firstChild, 2);
     range.setEnd(d.lastChild.firstChild, 2);
@@ -76,6 +83,16 @@ describe('RangeIterator', function () {
   });
 
   it('should iterate over the TextNodes within a Range selecting beginning of last paragraph', function () {
+    d.innerHTML =
+      '<p>' +
+        'hello ' +
+        '<b>world</b>' +
+        '.' +
+      '</p>' +
+      '<p>' +
+        'foo' +
+      '</p>';
+
     var range = document.createRange();
     range.setStart(d.firstChild.firstChild, 0);
     range.setEnd(d.lastChild, 0);
@@ -101,6 +118,16 @@ describe('RangeIterator', function () {
   });
 
   it('should iterate over the B element within a Range', function () {
+    d.innerHTML =
+      '<p>' +
+        'hello ' +
+        '<b>world</b>' +
+        '.' +
+      '</p>' +
+      '<p>' +
+        'foo' +
+      '</p>';
+
     var range = document.createRange();
     range.setStart(d.firstChild.firstChild, 2);
     range.setEnd(d.lastChild.firstChild, 2);
@@ -121,6 +148,16 @@ describe('RangeIterator', function () {
   });
 
   it('should iterate over the TextNode within a collapsed Range', function () {
+    d.innerHTML =
+      '<p>' +
+        'hello ' +
+        '<b>world</b>' +
+        '.' +
+      '</p>' +
+      '<p>' +
+        'foo' +
+      '</p>';
+
     var range = document.createRange();
     range.setStart(d.lastChild.firstChild, 2);
     range.setEnd(d.lastChild.firstChild, 2);
