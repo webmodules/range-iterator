@@ -1,6 +1,6 @@
 {
   "name": "range-iterator",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "ES6 Iterator that iterates over the Nodes of a Range",
   "main": "build/index.js",
   "scripts": {
